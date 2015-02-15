@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/bright/styles/screen.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>BackboneConf &lsquo;14</h1>
+		<p>Ryan Muller &amp; Jackson Westeen</p>
+	</header>
+	<section class="slide cover" id="Cover"><div>
+      <div class="blurry table bg-pic"></div>
+		<h2>BackboneConf &lsquo;14</h2>
+    <h4>the good parts</h4>
+		<p>Ryan Muller &amp; Jackson Westeen</p>
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			-->
+		<style>
+      .cover .bg-pic {
+        background-size: cover;
+        background-position: center top;
+        z-index: -1;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+      }
+      .cover .blurry.bg-pic {
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+        top: -8px; bottom: -8px; left: -8px; right: -8px;
+      }
+      .cover .bg-pic.table {
+        background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url(pictures/mac-glasses.jpg);
+      }
+      .cover .bg-pic.forest {
+        background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url(pictures/forest.jpg);
+      }
+      .cover .bg-pic.disassemble {
+        background-image: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) ), url(pictures/disassemble.jpg);
+      }
+      .cover .bg-pic.tools {
+        background-image: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1) ), url(pictures/tools.jpg);
+      }
+      .cover h2, .cover h4, .cover p{
+        text-shadow: 1px 1px 3px black;
+        z-index: 2;
+      }
+      .cover code {
+        color: white;
+      }
+			.cover h2 {
+				margin:30px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:70px;
+      }
+			.cover h4 {
+				margin:30px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:50px;
+        margin-top: 0;
+        font-weight: 100;
+      }
+      .cover h4 + h4 {
+        margin: -0.4em 0;
+      }
+			.cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#FFF;
+				font-style:italic;
+				font-size:20px;
+				}
+				.cover p a {
+					color:#FFF;
+					}
+          .shout.slide.andyet {
+            background-color: #ec008c;
+          }
+          .shout h4 {
+            position: absolute;
+            bottom: 2em;
+            color: white;
+          }
+		</style>
+	</div></section>
+	<section class="shout slide"><div>
+		<h2>Backbone walkthrough</h2>
+	</div></section>
+	<section class="slide cover" id="x-components"><div>
+      <div class="disassemble bg-pic"></div>
+      <h2><code>$X</code> components</h2>
+      <h4>Ember</h4>
+      <h4 class="next">React</h4>
+      <h4 class="next">WebComponents</h4>
+  </div></section>
+	<section class="slide cover" id="y-first"><div>
+      <div class="forest bg-pic"></div>
+      <h2><code>$Y</code>-first apps</h2>
+      <h4>Offline-first</h4>
+      <h4 class="next">Realtime</h4>
+      <h4 class="next">Composable</h4>
+  </div></section>
+	<section class="slide"><div>
+      <h2>Composable solutions</h2>
+		<ul>
+      <li>Wordpress API</li>
+      <li class="next"><code>$X</code> Components</li>
+      <li class="next">Composable event streams</li>
+		</ul>
+	</div></section>
+	<section class="andyet shout slide" id="ampersand-js"><div>
+		<h2>Ampersand.JS</h2>
+    <h4 class="next">&ldquo;Backbone is too monolithic&rdquo;</h4>
+	</div></section>
+  <section class="slide"><div>
+      <h2>Ampersand.JS</h2>
+      <ul>
+        <li>Modularized fork of Backbone</i>
+        <li class="next">Typed properties for your models</li>
+        <li class="next">ES6 FTW!</li>
+      </ul>
+  </div></section>
+	<section class="slide cover" id="tools"><div>
+      <div class="tools bg-pic"></div>
+      <h2>Tools</h2>
+      <h4>Marionette.Inspector</h4>
+      <h4 class="next">Jasmine testing</h4>
+  </div></section>
+  <section class="slide"><div>
+      <h2>Single source of truth</h2>
+  </div></section>
+	<section class="slide"><div>
+		<h2>Serious Citations</h2>
+		<figure>
+			<blockquote>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+			</blockquote>
+			<figcaption>Marcus Tullius Cicero</figcaption>
+		</figure>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Code Samples</h2>
+		<pre>
+			<code>&lt;!DOCTYPE html&gt;</code>
+			<code>&lt;html lang="en"&gt;</code>
+			<code><mark>&lt;head&gt;</mark> <mark class="comment">&lt;!--Comment--&gt;</mark></code>
+			<code>    &lt;title&gt;Shower&lt;/title&gt;</code>
+			<code>    &lt;meta charset="<mark class="important">UTF-8</mark>"&gt;</code>
+			<code>    &lt;link rel="stylesheet" href="screen.css"&gt;</code>
+			<code><mark>&lt;/head&gt;</mark></code>
+		</pre>
+	</div></section>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2014 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>
