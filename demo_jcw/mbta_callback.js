@@ -14,19 +14,19 @@ getRoutes(function (err, response) {
     if (err) {
         console.error(err);
     } else {
-        var routes = routesByLine(
+        var routes = groupRoutesByLine(
                 parseRoutes(response),
                 'Red Line'
             ),
             map = {};
 
         async.eachSeries(routes, function (route, done) {
-            getPredictions(route['route_id'], function(err, data) {
+            getPredictions(route['route_id'], function (err, data) {
                 if (err) {
                     console.error(err);
                 } else {
                     map[route['route_id']] = parsePredictions(data);
-                    getAlerts(route['route_id'], function(err, data) {
+                    getAlerts(route['route_id'], function (err, data) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -58,7 +58,7 @@ function makeRequest(method, query, args, callback) {
         url: getQueryString(query, args || {})
     };
 
-    request(options, function(err, res, body) {
+    request(options, function (err, res, body) {
         if (err || res.statusCode !== 200) { // if !200, error IS body, as XML... thanks MBTA
             callback(err || body, null);
         } else {
@@ -68,7 +68,7 @@ function makeRequest(method, query, args, callback) {
 }
 
 function getRoutes(callback) {
-    makeRequest('GET', 'routes', null, function(err, res) {
+    makeRequest('GET', 'routes', null, function (err, res) {
         if (err) {
             callback(err, null);
         } else {
@@ -78,7 +78,7 @@ function getRoutes(callback) {
 }
 
 function getPredictions(route, callback) {
-    makeRequest('GET', 'predictionsbyroute', { route: route }, function(err, res) {
+    makeRequest('GET', 'predictionsbyroute', { route: route }, function (err, res) {
         if (err) {
             callback(err, null);
         } else {
@@ -88,7 +88,7 @@ function getPredictions(route, callback) {
 }
 
 function getAlerts(route, callback) {
-    makeRequest('GET', 'alertsbyroute', { route: route, include_service_alerts: true }, function(err, res) {
+    makeRequest('GET', 'alertsbyroute', { route: route, include_service_alerts: true }, function (err, res) {
         if (err) {
             callback(err, null);
         } else {
@@ -97,12 +97,12 @@ function getAlerts(route, callback) {
     });
 }
 
-function routesByLine(routes, line) {
-    var routes = _.groupBy(routes, function(route) {
+function groupRoutesByLine(routes, line) {
+    var routes = _.groupBy(routes, function (route) {
         return route['route_name'];
     });
 
-   return routes[line] || null;
+    return routes[line] || null;
 
 }
 
