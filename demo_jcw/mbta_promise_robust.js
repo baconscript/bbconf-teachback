@@ -1,46 +1,33 @@
-/*
- * demo:    implicit error handling, lack of callback hell,
- *          declarative by nature, loosly coupled, highly composable
- */
-
 var request = require('request'),
     qs = require('querystring'),
     q = require('q'),
     _ = require('lodash');
 
-
 // get data
-getRoutes()
-    .then(function (result) {
-        return groupRoutesByLine(
-            parseRoutes(result),
-            'Red Line'
-        );
-    })  // .groupRoutesByLine() returns a non-thenable...
-    // but .then() returns a new promise, getRoutes is resolved!
-
-    .then(function (routes) {
-        // map .getPredictions() across array of routes for this line...
-        var promises = _.map(_.pluck(routes, 'route_id'), getPredictions);
-        return q.all(promises); // evaluate all requests, then return an array of newly resolved promises!
-    })
-
-    .then(function (predictions) {
-        // parse predictions for each line, then map .getAlerts() across each route...
-        var predictionData = _.map(predictions, parsePredictions),
-            promises = _.map(_.pluck(predictionData, 'route_id'), getAlerts);
-
-        // evaluate all requests, then combine datasets (note the nested promise chain, and closure!)
-        return q.all(promises).then(function (alerts) {
-            var alertData = _.map(alerts, parseAlerts);
-
-            return _.merge(
-                _.groupBy(predictionData, 'route_id'),
-                _.groupBy(alertData, 'route_id')
-            );
-        });
-    })
-    .then(printResponse, console.error); // any errors that occurred along the way will propagate down here
+exports.fetch = function (color) {
+    return getRoutes()
+        .then(function (routes) {
+            return groupRoutesByLine(parseRoutes(routes), color);
+        })
+        .then(function (routes) {
+            var promises = _(routes).pluck('route_id').map(getPredictions).value();
+            return q.allSettled(promises);
+        })
+        .then(function (result) {
+            var predictions = _(result).where({state: 'fulfilled'}).pluck('value').map(parsePredictions).value(),
+                promises = _(predictions).pluck('route_id').map(getAlerts).value();
+            return q.allSettled(promises).then(function (result) {
+                var alerts = _(result).where({state: 'fulfilled'}).pluck('value').map(parseAlerts).value();
+                return _.merge(
+                    _.groupBy(predictions, 'route_id'),
+                    _.groupBy(alerts, 'route_id')
+                );
+            });
+        })
+        .then(function (data) {
+            return data;
+        }, console.error);
+};
 
 function getQueryString(query, queryArgs) {
     var url = 'http://realtime.mbta.com/developer/api/v2/' + query,
@@ -82,14 +69,14 @@ function getAlerts(route) {
     return makeRequest('GET', 'alertsbyroute', { route: route, include_service_alerts: true });
 }
 
-function groupRoutesByLine(routes, line) {
+function groupRoutesByLine(routes, color) {
     var routes = _.groupBy(routes, function (route) {
         return route['route_name'];
     });
 
-    if (!routes[line]) throw new Error('No routes for ' + line);
-    return routes[line];
-
+    if (!color) return _.flatten(_.values(routes));
+    if (!routes[color]) throw new Error('No routes for ' + color);
+    return routes[color] || [];
 }
 
 function parseRoutes(response) {
@@ -110,10 +97,9 @@ function parsePredictions(response) {
 }
 
 function parseAlerts(response) {
-    var result = JSON.parse(response),
-        alerts = result;
+    var result = JSON.parse(response);
 
-    return alerts;
+    return result;
 }
 
 function printResponse(response) {
