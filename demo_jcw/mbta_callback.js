@@ -1,7 +1,3 @@
-/*
- * disclaimer:  this code is relatively disgusting, let's see how it can be improved with promises!
- * demo:        try changing 'Red Line' to 'Green Line' and see what happens, can you easily debug it?
- */
 
 var async = require('async'),
     request = require('request'),
@@ -103,7 +99,6 @@ function groupRoutesByLine(routes, line) {
     });
 
     return routes[line] || null;
-
 }
 
 function parseRoutes(response) {

@@ -65,10 +65,10 @@ function fetch(color) {
         }
 
         if (newRoutes.length && newTrips.length) {
-            routes = newRoutes;
-            trips = _.groupBy(newTrips, 'route_id');
+                routes = newRoutes;
+                trips = _.groupBy(newTrips, 'route_id');
 
-            console.log('[' + Date.now() + '] got ' + routes.length + ' routes and ' + newTrips.length + ' trips!');
+                console.log('[' + Date.now() + '] got ' + routes.length + ' routes and ' + newTrips.length + ' trips!');
         } else {
             console.error('[' + Date.now() + '] mbta API failed to return new data...');
         }

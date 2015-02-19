@@ -48,7 +48,7 @@ app.set('view engine', 'jade');
 // -----------------
 // Set up our little demo API
 // -----------------
-var api = require('./fakeApi'); // TODO: switch to realApi before demo ;)
+var api = require('./realApi'); // TODO: switch to realApi before demo ;)
 app.get('/api/routes', api.routes);
 app.get('/api/trips/:id', api.trips);
 
@@ -90,7 +90,7 @@ new Moonboots({
             fixPath('public/css/app.css')
         ],
         browserify: {
-            debug: true
+            debug: false
         },
         beforeBuildJS: function () {
             // This re-builds our template files from jade each time the app's main
